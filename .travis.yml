@@ -2,6 +2,5 @@ language: bash
 script:
     - uname -a
     - id
-    - env
     - pwd
-
+    - env
