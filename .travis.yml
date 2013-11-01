@@ -1,6 +1,3 @@
 language: bash
 script:
-    - uname -a
-    - id
-    - pwd
-    - env
+    - bash test.sh
