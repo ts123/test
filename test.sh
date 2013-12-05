@@ -3,4 +3,4 @@ set -x
 uname -a
 id
 pwd
-env
+env | sort
