@@ -8,9 +8,10 @@ echo TAG_NAME:$TAG_NAME
 ASSET=package-${TAG_NAME}.zip
 zip -r9 ${ASSET} . -x '*.git*'
 
+JQ_URL=http://stedolan.github.io/jq/download/linux64/jq
 getreleaseid() {
     if [[ ! -f ./jq ]]; then 
-        wget http://stedolan.github.io/jq/download/osx64/jq
+        wget "$JQ_URL"
         chmod +x jq
     fi
     curl -s "https://api.github.com/repos/${1}/releases" | ./jq '. | map(select(.tag_name == "'${2}'")) | .[0].id'
