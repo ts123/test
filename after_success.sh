@@ -19,7 +19,7 @@ getreleaseid() {
 
 RELEASE_ID=$(getreleaseid ${TRAVIS_REPO_SLUG} ${TAG_NAME})
 if [ ! "$RELEASE_ID" == "null" ]; then
-    echo releaseid:$RELEASE_ID exists
+    echo remove release:$RELEASE_ID
     # remove github release
     curl -H "Authorization: token ${TOKEN}" \
          -X DELETE \
@@ -27,6 +27,7 @@ if [ ! "$RELEASE_ID" == "null" ]; then
 fi
 
 # create github release
+echo create release
 curl -H "Authorization: token ${TOKEN}" \
      -H "Accept: application/vnd.github.manifold-preview" \
      -X POST \
@@ -40,9 +41,10 @@ if [ "$RELEASE_ID" == "null" ]; then
 fi
 
 # upload package.zip
+echo upload ${ASSET}
 curl -H "Authorization: token ${TOKEN}" \
      -H "Accept: application/vnd.github.manifold-preview" \
      -H "Content-Type: application/zip" \
-     --data-binary @${ASSET}.zip \
-     "https://uploads.github.com/repos/${TRAVIS_REPO_SLUG}/releases/${RELEASE_ID}/assets?name=${ASSET}.zip"
+     --data-binary @${ASSET} \
+     "https://uploads.github.com/repos/${TRAVIS_REPO_SLUG}/releases/${RELEASE_ID}/assets?name=${ASSET}"
 
