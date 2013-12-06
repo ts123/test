@@ -16,13 +16,13 @@ zip -r9 ${ASSET} . -x '*.git*'
 # setup json parser
 _downloadjq() {
     if [ $(uname) = "Darwin" ] ; then
-        if $(uname -m | grep '64'); then
+        if uname -m | grep '64' > /dev/null; then
             platform=osx64
         else
             platform=osx32
         fi
     else
-        if $(uname -m | grep '64'); then
+        if uname -m | grep '64' > /dev/null; then
             platform=linux64
         else
             platform=linux32
