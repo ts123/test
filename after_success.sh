@@ -28,10 +28,12 @@ fi
 
 # create github release
 echo create release
+rm -f data.json
+printf '{"tag_name":"%s", "target_commitish":"%s", "draft":"true"}' "${TAG_NAME}" "${TRAVIS_COMMIT}" > data.json
 curl -H "Authorization: token ${TOKEN}" \
      -H "Accept: application/vnd.github.manifold-preview" \
      -X POST \
-     -d $(printf '{"tag_name":"%s", "draft":"true"}' "${TAG_NAME}") \
+     -d @data.json \
      "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/releases"
 
 RELEASE_ID=$(getreleaseid ${TRAVIS_REPO_SLUG} ${TAG_NAME})
