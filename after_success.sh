@@ -4,7 +4,7 @@ echo $0 "$@"
 
 TAG_NAME=${TRAVIS_BRANCH}
 echo TAG_NAME:$TAG_NAME
-if [[ ! "$TAG_NAME" =~ '[0-9]+\.[0-9]+\.[0-9]+$' ]]; then
+if [[ ! "$TAG_NAME" =~ [0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     echo $TAG_NAME is not a valid tag name
     exit
 fi
