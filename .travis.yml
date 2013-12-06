@@ -3,6 +3,6 @@ script:
     - bash test.sh
 env:
     global:
-        secure: OAN91VPVsxOJqzoHBll1lq8RgMdSeiRjKOVqfMH1tm5yNWrVOPjj6RCYFD9MlmYV6Moo2IJX914R8OgFIeiCVtB+fK3SEU3P/b+lg5xKWpEmednMv3CDe+OmWjk6G5st311y+loKujP/ky26VO6xsLKoDz/cGCy46Am+IEtKlLw=
+        secure: "cb4ZJID8vzghLw1BTt3hAAg5Pzc7S1Sj60ZRPHNEuseODYC0XVn71JsWBjkepqF6HRHITFZzTAWf0/v8melMb5dHdelqBpDdn2aZG+MDV+NhzYtpduzfiAWSJGWP/FGGjj74PavUSYWKro7RFsIpKEYJLP980DKwJ91REv068aI="
 after_success:
     ./after_success.sh
