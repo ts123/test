@@ -9,18 +9,45 @@ if [[ ! "$TAG_NAME" =~ [0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     exit
 fi
 
+# asset file to be uploaded to github release
 ASSET=package-${TAG_NAME}.zip
 zip -r9 ${ASSET} . -x '*.git*'
 
-JQ_URL=http://stedolan.github.io/jq/download/linux64/jq
-getreleaseid() {
-    if [[ ! -f ./jq ]]; then 
-        wget "$JQ_URL"
-        chmod +x jq
+# setup json parser
+_downloadjq() {
+    if [ $(uname) = "Darwin" ] ; then
+        if $(uname -m | grep '64'); then
+            platform=osx64
+        else
+            platform=osx32
+        fi
+    else
+        if $(uname -m | grep '64'); then
+            platform=linux64
+        else
+            platform=linux32
+        fi
     fi
-    curl -s "https://api.github.com/repos/${1}/releases" | ./jq '. | map(select(.tag_name == "'${2}'")) | .[0].id'
+    wget http://stedolan.github.io/jq/download/${platform}/jq
+}
+JQ() {
+    if command -v jq >/dev/null; then
+        cmd=jq
+    else
+        if [[ ! -f ./jq ]]; then
+            _downloadjq
+            chmod +x ./jq
+        fi
+        cmd=./jq
+    fi
+    $cmd "$@"
 }
 
+getreleaseid() {
+    curl -s "https://api.github.com/repos/${1}/releases" | JQ '. | map(select(.tag_name == "'${2}'")) | .[0].id'
+}
+
+# if github relese id already exists, create again
 RELEASE_ID=$(getreleaseid ${TRAVIS_REPO_SLUG} ${TAG_NAME})
 if [ ! "$RELEASE_ID" == "null" ]; then
     echo remove release:$RELEASE_ID
