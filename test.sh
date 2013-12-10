@@ -17,4 +17,10 @@ echo `ls /usr/bin`
 echo
 echo $ ls /usr/sbin
 echo `ls /usr/sbin`
+echo
+echo $ ls /usr/local/bin
+echo `ls /usr/local/bin`
+echo
+echo $ ls /usr/local/sbin
+echo `ls /usr/local/sbin`
 
