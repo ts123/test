@@ -4,7 +4,12 @@ uname -a
 id
 pwd
 env | sort
-ls /bin
-ls /sbin
-ls /usr/bin
-ls /usr/sbin
+set +x
+echo $ ls /bin
+echo `ls /bin`
+echo $ ls /sbin
+echo `ls /sbin`
+echo $ ls /usr/bin
+echo `ls /usr/bin`
+echo $ ls /usr/sbin
+echo `ls /usr/sbin`
